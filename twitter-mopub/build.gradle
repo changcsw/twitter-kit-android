@@ -71,6 +71,7 @@ dependencies {
     api (dependency.mopub) {
         transitive = true
     }
+    implementation 'com.android.support:support-annotations:23.1.1'
 
     testCompile dependency.mockito
     testCompile dependency.junit
