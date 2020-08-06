@@ -17,6 +17,9 @@
 
 apply plugin: 'com.android.library'
 
+project.group = "com.puzzle.twitter"
+project.version = "3.3.0"
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -73,4 +76,33 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     testCompile dependency.equalsVerifier
+}
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        name = 'mavenCentralReleaseDeployer'
+        /*snapshotRepository(url: "http://nexus.puzzleplusgames.net/repository/maven-snapshots/") {
+            authentication(userName: "maven_developer", password: "fun123456")
+            pom.version = project.ext.versionName + "-SNAPSHOT"
+        }*/
+        repository(url: "http://nexus.puzzleplusgames.net/repository/maven-releases/") {
+            authentication(userName: "maven_developer", password: "fun123456")
+        }
+        pom.project {
+            name "twitter-core" // artifact名称
+            version project.version // artifact版本
+            artifactId "twitter-core" // artifact id
+            groupId "com.puzzle.twitter" // artifact所属Group Id
+            packaging "aar" // 文件格式，例如jar、aar
+            description "Modify twitter-core 3.3.0，Support AndroidX." // 描述
+            url "https://github.com/changcsw/twitter-kit-android"
+        }
+    }
+}
+gradle.taskGraph.beforeTask { Task aTask ->
+    if (aTask == uploadArchives) {
+        uploadArchives.dependsOn 'clean'
+        uploadArchives.dependsOn 'assembleRelease'
+    }
 }
