@@ -18,7 +18,7 @@
 apply plugin: 'com.android.library'
 
 project.group = "com.puzzle.twitter"
-project.version = "3.3.0"
+project.version = "3.3.1"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -95,7 +95,8 @@ uploadArchives {
             artifactId "twitter-core" // artifact id
             groupId "com.puzzle.twitter" // artifact所属Group Id
             packaging "aar" // 文件格式，例如jar、aar
-            description "Modify twitter-core 3.3.0，Support AndroidX." // 描述
+            description "Modify twitter-core 3.3.0，Exception message full 'Authorize already in progress.' " +
+                    "When authorize already in progress." // 描述
             url "https://github.com/changcsw/twitter-kit-android"
         }
     }

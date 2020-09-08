@@ -97,7 +97,11 @@ public class TwitterAuthClient {
         final CallbackWrapper callbackWrapper = new CallbackWrapper(sessionManager, callback);
         if (!authorizeUsingSSO(activity, callbackWrapper)
                 && !authorizeUsingOAuth(activity, callbackWrapper)) {
-            callbackWrapper.failure(new TwitterAuthException("Authorize failed."));
+            if (authState != null && authState.isAuthorizeInProgress()) {
+                callbackWrapper.failure(new TwitterAuthException("Authorize already in progress."));
+            } else {
+                callbackWrapper.failure(new TwitterAuthException("Authorize failed."));
+            }
         }
     }
 

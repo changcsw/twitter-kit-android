@@ -18,7 +18,7 @@
 apply plugin: 'com.android.library'
 
 project.group = "com.puzzle.twitter"
-project.version = "3.3.0"
+project.version = "3.3.1"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
